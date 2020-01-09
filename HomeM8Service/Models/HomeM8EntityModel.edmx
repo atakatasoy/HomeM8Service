@@ -1,0 +1,1389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HomeM8Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BillProcess">
+          <Key>
+            <PropertyRef Name="BillProcessID" />
+          </Key>
+          <Property Name="BillProcessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bills">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeID" Type="int" Nullable="false" />
+          <Property Name="OwnerUserID" Type="int" Nullable="false" />
+          <Property Name="BillAmount" Type="decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="BillImage" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastPayment" Type="datetime" Nullable="false" />
+          <Property Name="Paid" Type="bit" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarEvents">
+          <Key>
+            <PropertyRef Name="CalendarEventID" />
+          </Key>
+          <Property Name="CalendarEventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeID" Type="int" Nullable="false" />
+          <Property Name="PayerUserID" Type="int" />
+          <Property Name="EventExplanation" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Paid" Type="bit" Nullable="false" />
+          <Property Name="ExpectedDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConnectionRequests">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="HomeID" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Debts">
+          <Key>
+            <PropertyRef Name="DebtID" />
+          </Key>
+          <Property Name="DebtID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PayeeUserID" Type="int" Nullable="false" />
+          <Property Name="DebtorUserID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForgotPass">
+          <Key>
+            <PropertyRef Name="ForgotPassID" />
+          </Key>
+          <Property Name="ForgotPassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ValidationCode" Type="int" />
+          <Property Name="AttemptCount" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FromRegister">
+          <Key>
+            <PropertyRef Name="FromRegisterUserID" />
+          </Key>
+          <Property Name="FromRegisterUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SharedSecret" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HomeConnections">
+          <Key>
+            <PropertyRef Name="ConnectionID" />
+          </Key>
+          <Property Name="ConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Homes">
+          <Key>
+            <PropertyRef Name="HomeID" />
+          </Key>
+          <Property Name="HomeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CurManagerUserID" Type="int" Nullable="false" />
+          <Property Name="HomeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SingleUseJoinKey" Type="nvarchar" MaxLength="50" />
+          <Property Name="Joinable" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomeUseRules">
+          <Key>
+            <PropertyRef Name="RuleID" />
+          </Key>
+          <Property Name="RuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RuleType" Type="int" Nullable="false" />
+          <Property Name="HomeID" Type="int" Nullable="false" />
+          <Property Name="Detail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppContent" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotificationComments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationID" Type="int" Nullable="false" />
+          <Property Name="OwnerUserID" Type="int" Nullable="false" />
+          <Property Name="CommentContent" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeID" Type="int" Nullable="false" />
+          <Property Name="OwnerUserID" Type="int" Nullable="false" />
+          <Property Name="NotificationType" Type="int" Nullable="false" />
+          <Property Name="NotificationMessage" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ExpectedAnswerRange" Type="int" />
+        </EntityType>
+        <EntityType Name="NotificationType">
+          <Key>
+            <PropertyRef Name="NotificationTypeID" />
+          </Key>
+          <Property Name="NotificationTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RSA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="publicKey" Type="nvarchar" MaxLength="600" />
+          <Property Name="privateKey" Type="nvarchar" MaxLength="2430" />
+        </EntityType>
+        <EntityType Name="RuleTypes">
+          <Key>
+            <PropertyRef Name="RuleTypeID" />
+          </Key>
+          <Property Name="RuleTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RuleDetail" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="CurrentHome" Type="int" />
+          <Property Name="AccessToken" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NameSurname" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Userpass" Type="nvarchar" MaxLength="88" Nullable="false" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="ContactInfo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SharedSecret" Type="varbinary" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Warnings">
+          <Key>
+            <PropertyRef Name="WarningID" />
+          </Key>
+          <Property Name="WarningID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarningContent" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BillProcess_Bills">
+          <End Role="Bills" Type="Self.Bills" Multiplicity="1" />
+          <End Role="BillProcess" Type="Self.BillProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bills">
+              <PropertyRef Name="BillID" />
+            </Principal>
+            <Dependent Role="BillProcess">
+              <PropertyRef Name="BillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillProcess_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="BillProcess" Type="Self.BillProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BillProcess">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Homes">
+          <End Role="Homes" Type="Self.Homes" Multiplicity="1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="OwnerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvents_Homes">
+          <End Role="Homes" Type="Self.Homes" Multiplicity="1" />
+          <End Role="CalendarEvents" Type="Self.CalendarEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="CalendarEvents">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvents_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="CalendarEvents" Type="Self.CalendarEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CalendarEvents">
+              <PropertyRef Name="PayerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConnectionRequests_Homes">
+          <End Role="Homes" Type="Self.Homes" Multiplicity="1" />
+          <End Role="ConnectionRequests" Type="Self.ConnectionRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="ConnectionRequests">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConnectionRequests_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ConnectionRequests" Type="Self.ConnectionRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ConnectionRequests">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debts_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Debts" Type="Self.Debts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Debts">
+              <PropertyRef Name="PayeeUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debts_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Debts" Type="Self.Debts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Debts">
+              <PropertyRef Name="DebtorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForgotPass_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ForgotPass" Type="Self.ForgotPass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForgotPass">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeConnections_Homes">
+          <End Role="Homes" Type="Self.Homes" Multiplicity="1" />
+          <End Role="HomeConnections" Type="Self.HomeConnections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="HomeConnections">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeConnections_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="HomeConnections" Type="Self.HomeConnections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="HomeConnections">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Homes_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Homes" Type="Self.Homes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Homes">
+              <PropertyRef Name="CurManagerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeUseRules_Homes">
+          <End Role="Homes" Type="Self.Homes" Multiplicity="1" />
+          <End Role="HomeUseRules" Type="Self.HomeUseRules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="HomeUseRules">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeUseRules_RuleTypes">
+          <End Role="RuleTypes" Type="Self.RuleTypes" Multiplicity="1" />
+          <End Role="HomeUseRules" Type="Self.HomeUseRules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RuleTypes">
+              <PropertyRef Name="RuleTypeID" />
+            </Principal>
+            <Dependent Role="HomeUseRules">
+              <PropertyRef Name="RuleType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotificationComments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="NotificationComments" Type="Self.NotificationComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="NotificationComments">
+              <PropertyRef Name="OwnerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Homes">
+          <End Role="Homes" Type="Self.Homes" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_NotificationType">
+          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="NotificationTypeID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="NotificationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="OwnerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Homes">
+          <End Role="Homes" Type="Self.Homes" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CurrentHome" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HomeM8ModelStoreContainer">
+          <EntitySet Name="BillProcess" EntityType="Self.BillProcess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEvents" EntityType="Self.CalendarEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConnectionRequests" EntityType="Self.ConnectionRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Debts" EntityType="Self.Debts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForgotPass" EntityType="Self.ForgotPass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FromRegister" EntityType="Self.FromRegister" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomeConnections" EntityType="Self.HomeConnections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Homes" EntityType="Self.Homes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomeUseRules" EntityType="Self.HomeUseRules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationComments" EntityType="Self.NotificationComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RSA" EntityType="Self.RSA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RuleTypes" EntityType="Self.RuleTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warnings" EntityType="Self.Warnings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BillProcess_Bills" Association="Self.FK_BillProcess_Bills">
+            <End Role="Bills" EntitySet="Bills" />
+            <End Role="BillProcess" EntitySet="BillProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillProcess_Users" Association="Self.FK_BillProcess_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BillProcess" EntitySet="BillProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Homes" Association="Self.FK_Bills_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Users" Association="Self.FK_Bills_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvents_Homes" Association="Self.FK_CalendarEvents_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="CalendarEvents" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvents_Users" Association="Self.FK_CalendarEvents_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CalendarEvents" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConnectionRequests_Homes" Association="Self.FK_ConnectionRequests_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="ConnectionRequests" EntitySet="ConnectionRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConnectionRequests_Users" Association="Self.FK_ConnectionRequests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ConnectionRequests" EntitySet="ConnectionRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debts_Users" Association="Self.FK_Debts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Debts" EntitySet="Debts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debts_Users1" Association="Self.FK_Debts_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Debts" EntitySet="Debts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForgotPass_Users" Association="Self.FK_ForgotPass_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ForgotPass" EntitySet="ForgotPass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeConnections_Homes" Association="Self.FK_HomeConnections_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="HomeConnections" EntitySet="HomeConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeConnections_Users1" Association="Self.FK_HomeConnections_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="HomeConnections" EntitySet="HomeConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Homes_Users" Association="Self.FK_Homes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Homes" EntitySet="Homes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeUseRules_Homes" Association="Self.FK_HomeUseRules_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="HomeUseRules" EntitySet="HomeUseRules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeUseRules_RuleTypes" Association="Self.FK_HomeUseRules_RuleTypes">
+            <End Role="RuleTypes" EntitySet="RuleTypes" />
+            <End Role="HomeUseRules" EntitySet="HomeUseRules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NotificationComments_Users" Association="Self.FK_NotificationComments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="NotificationComments" EntitySet="NotificationComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Homes" Association="Self.FK_Notifications_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_NotificationType" Association="Self.FK_Notifications_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Users" Association="Self.FK_Notifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Homes" Association="Self.FK_Users_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HomeM8Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HomeM8Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BillProcess" EntityType="HomeM8Model.BillProcess" />
+          <EntitySet Name="Bills" EntityType="HomeM8Model.Bills" />
+          <EntitySet Name="CalendarEvents" EntityType="HomeM8Model.CalendarEvents" />
+          <EntitySet Name="Debts" EntityType="HomeM8Model.Debts" />
+          <EntitySet Name="ForgotPass" EntityType="HomeM8Model.ForgotPass" />
+          <EntitySet Name="FromRegister" EntityType="HomeM8Model.FromRegister" />
+          <EntitySet Name="HomeConnections" EntityType="HomeM8Model.HomeConnections" />
+          <EntitySet Name="Homes" EntityType="HomeM8Model.Homes" />
+          <EntitySet Name="Languages" EntityType="HomeM8Model.Languages" />
+          <EntitySet Name="NotificationComments" EntityType="HomeM8Model.NotificationComments" />
+          <EntitySet Name="Notifications" EntityType="HomeM8Model.Notifications" />
+          <EntitySet Name="NotificationType" EntityType="HomeM8Model.NotificationType" />
+          <EntitySet Name="RSA" EntityType="HomeM8Model.RSA" />
+          <EntitySet Name="Users" EntityType="HomeM8Model.Users" />
+          <EntitySet Name="UserType" EntityType="HomeM8Model.UserType" />
+          <EntitySet Name="Warnings" EntityType="HomeM8Model.Warnings" />
+          <AssociationSet Name="FK_BillProcess_Bills" Association="HomeM8Model.FK_BillProcess_Bills">
+            <End Role="Bills" EntitySet="Bills" />
+            <End Role="BillProcess" EntitySet="BillProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillProcess_Users" Association="HomeM8Model.FK_BillProcess_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BillProcess" EntitySet="BillProcess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Homes" Association="HomeM8Model.FK_Bills_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Users" Association="HomeM8Model.FK_Bills_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvents_Homes" Association="HomeM8Model.FK_CalendarEvents_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="CalendarEvents" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvents_Users" Association="HomeM8Model.FK_CalendarEvents_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CalendarEvents" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debts_Users" Association="HomeM8Model.FK_Debts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Debts" EntitySet="Debts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Debts_Users1" Association="HomeM8Model.FK_Debts_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Debts" EntitySet="Debts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForgotPass_Users" Association="HomeM8Model.FK_ForgotPass_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ForgotPass" EntitySet="ForgotPass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeConnections_Homes" Association="HomeM8Model.FK_HomeConnections_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="HomeConnections" EntitySet="HomeConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeConnections_Users1" Association="HomeM8Model.FK_HomeConnections_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="HomeConnections" EntitySet="HomeConnections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Homes_Users" Association="HomeM8Model.FK_Homes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Homes" EntitySet="Homes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Homes" Association="HomeM8Model.FK_Notifications_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Homes" Association="HomeM8Model.FK_Users_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NotificationComments_Users" Association="HomeM8Model.FK_NotificationComments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="NotificationComments" EntitySet="NotificationComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_NotificationType" Association="HomeM8Model.FK_Notifications_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Users" Association="HomeM8Model.FK_Notifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <EntitySet Name="ConnectionRequests" EntityType="HomeM8Model.ConnectionRequests" />
+          <AssociationSet Name="FK_ConnectionRequests_Homes" Association="HomeM8Model.FK_ConnectionRequests_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="ConnectionRequests" EntitySet="ConnectionRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConnectionRequests_Users" Association="HomeM8Model.FK_ConnectionRequests_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ConnectionRequests" EntitySet="ConnectionRequests" />
+          </AssociationSet>
+          <EntitySet Name="HomeUseRules" EntityType="HomeM8Model.HomeUseRules" />
+          <EntitySet Name="RuleTypes" EntityType="HomeM8Model.RuleTypes" />
+          <AssociationSet Name="FK_HomeUseRules_Homes" Association="HomeM8Model.FK_HomeUseRules_Homes">
+            <End Role="Homes" EntitySet="Homes" />
+            <End Role="HomeUseRules" EntitySet="HomeUseRules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeUseRules_RuleTypes" Association="HomeM8Model.FK_HomeUseRules_RuleTypes">
+            <End Role="RuleTypes" EntitySet="RuleTypes" />
+            <End Role="HomeUseRules" EntitySet="HomeUseRules" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BillProcess">
+          <Key>
+            <PropertyRef Name="BillProcessID" />
+          </Key>
+          <Property Name="BillProcessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="9" Scale="3" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bills" Relationship="HomeM8Model.FK_BillProcess_Bills" FromRole="BillProcess" ToRole="Bills" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_BillProcess_Users" FromRole="BillProcess" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Bills">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerUserID" Type="Int32" Nullable="false" />
+          <Property Name="BillAmount" Type="Decimal" Nullable="false" Precision="9" Scale="3" />
+          <Property Name="BillImage" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastPayment" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BillProcess" Relationship="HomeM8Model.FK_BillProcess_Bills" FromRole="Bills" ToRole="BillProcess" />
+          <NavigationProperty Name="Homes" Relationship="HomeM8Model.FK_Bills_Homes" FromRole="Bills" ToRole="Homes" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_Bills_Users" FromRole="Bills" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CalendarEvents">
+          <Key>
+            <PropertyRef Name="CalendarEventID" />
+          </Key>
+          <Property Name="CalendarEventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeID" Type="Int32" Nullable="false" />
+          <Property Name="PayerUserID" Type="Int32" />
+          <Property Name="EventExplanation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="ExpectedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Homes" Relationship="HomeM8Model.FK_CalendarEvents_Homes" FromRole="CalendarEvents" ToRole="Homes" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_CalendarEvents_Users" FromRole="CalendarEvents" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Debts">
+          <Key>
+            <PropertyRef Name="DebtID" />
+          </Key>
+          <Property Name="DebtID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PayeeUserID" Type="Int32" Nullable="false" />
+          <Property Name="DebtorUserID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="9" Scale="3" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_Debts_Users" FromRole="Debts" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="HomeM8Model.FK_Debts_Users1" FromRole="Debts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ForgotPass">
+          <Key>
+            <PropertyRef Name="ForgotPassID" />
+          </Key>
+          <Property Name="ForgotPassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ValidationCode" Type="Int32" />
+          <Property Name="AttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_ForgotPass_Users" FromRole="ForgotPass" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="FromRegister">
+          <Key>
+            <PropertyRef Name="FromRegisterUserID" />
+          </Key>
+          <Property Name="FromRegisterUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SharedSecret" Type="Binary" Nullable="false" MaxLength="50" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="HomeConnections">
+          <Key>
+            <PropertyRef Name="ConnectionID" />
+          </Key>
+          <Property Name="ConnectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Homes" Relationship="HomeM8Model.FK_HomeConnections_Homes" FromRole="HomeConnections" ToRole="Homes" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_HomeConnections_Users1" FromRole="HomeConnections" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Homes">
+          <Key>
+            <PropertyRef Name="HomeID" />
+          </Key>
+          <Property Name="HomeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CurManagerUserID" Type="Int32" Nullable="false" />
+          <Property Name="HomeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SingleUseJoinKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Joinable" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bills" Relationship="HomeM8Model.FK_Bills_Homes" FromRole="Homes" ToRole="Bills" />
+          <NavigationProperty Name="CalendarEvents" Relationship="HomeM8Model.FK_CalendarEvents_Homes" FromRole="Homes" ToRole="CalendarEvents" />
+          <NavigationProperty Name="HomeConnections" Relationship="HomeM8Model.FK_HomeConnections_Homes" FromRole="Homes" ToRole="HomeConnections" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_Homes_Users" FromRole="Homes" ToRole="Users" />
+          <NavigationProperty Name="Notifications" Relationship="HomeM8Model.FK_Notifications_Homes" FromRole="Homes" ToRole="Notifications" />
+          <NavigationProperty Name="Users1" Relationship="HomeM8Model.FK_Users_Homes" FromRole="Homes" ToRole="Users" />
+          <NavigationProperty Name="ConnectionRequests" Relationship="HomeM8Model.FK_ConnectionRequests_Homes" FromRole="Homes" ToRole="ConnectionRequests" />
+          <NavigationProperty Name="HomeUseRules" Relationship="HomeM8Model.FK_HomeUseRules_Homes" FromRole="Homes" ToRole="HomeUseRules" />
+        </EntityType>
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NotificationComments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerUserID" Type="Int32" Nullable="false" />
+          <Property Name="CommentContent" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_NotificationComments_Users" FromRole="NotificationComments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerUserID" Type="Int32" Nullable="false" />
+          <Property Name="NotificationType" Type="Int32" Nullable="false" />
+          <Property Name="NotificationMessage" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpectedAnswerRange" Type="Int32" />
+          <NavigationProperty Name="Homes" Relationship="HomeM8Model.FK_Notifications_Homes" FromRole="Notifications" ToRole="Homes" />
+          <NavigationProperty Name="NotificationType1" Relationship="HomeM8Model.FK_Notifications_NotificationType" FromRole="Notifications" ToRole="NotificationType" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_Notifications_Users" FromRole="Notifications" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="NotificationType">
+          <Key>
+            <PropertyRef Name="NotificationTypeID" />
+          </Key>
+          <Property Name="NotificationTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notifications" Relationship="HomeM8Model.FK_Notifications_NotificationType" FromRole="NotificationType" ToRole="Notifications" />
+        </EntityType>
+        <EntityType Name="RSA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="publicKey" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="privateKey" Type="String" MaxLength="2430" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="CurrentHome" Type="Int32" />
+          <Property Name="AccessToken" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameSurname" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Userpass" Type="String" Nullable="false" MaxLength="88" FixedLength="false" Unicode="true" />
+          <Property Name="Salt" Type="String" Nullable="false" MaxLength="55" FixedLength="false" Unicode="true" />
+          <Property Name="ContactInfo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SharedSecret" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BillProcess" Relationship="HomeM8Model.FK_BillProcess_Users" FromRole="Users" ToRole="BillProcess" />
+          <NavigationProperty Name="Bills" Relationship="HomeM8Model.FK_Bills_Users" FromRole="Users" ToRole="Bills" />
+          <NavigationProperty Name="CalendarEvents" Relationship="HomeM8Model.FK_CalendarEvents_Users" FromRole="Users" ToRole="CalendarEvents" />
+          <NavigationProperty Name="Debts" Relationship="HomeM8Model.FK_Debts_Users" FromRole="Users" ToRole="Debts" />
+          <NavigationProperty Name="Debts1" Relationship="HomeM8Model.FK_Debts_Users1" FromRole="Users" ToRole="Debts" />
+          <NavigationProperty Name="ForgotPass" Relationship="HomeM8Model.FK_ForgotPass_Users" FromRole="Users" ToRole="ForgotPass" />
+          <NavigationProperty Name="HomeConnections" Relationship="HomeM8Model.FK_HomeConnections_Users1" FromRole="Users" ToRole="HomeConnections" />
+          <NavigationProperty Name="Homes" Relationship="HomeM8Model.FK_Homes_Users" FromRole="Users" ToRole="Homes" />
+          <NavigationProperty Name="Homes1" Relationship="HomeM8Model.FK_Users_Homes" FromRole="Users" ToRole="Homes" />
+          <NavigationProperty Name="NotificationComments" Relationship="HomeM8Model.FK_NotificationComments_Users" FromRole="Users" ToRole="NotificationComments" />
+          <NavigationProperty Name="Notifications" Relationship="HomeM8Model.FK_Notifications_Users" FromRole="Users" ToRole="Notifications" />
+          <NavigationProperty Name="ConnectionRequests" Relationship="HomeM8Model.FK_ConnectionRequests_Users" FromRole="Users" ToRole="ConnectionRequests" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeID" />
+          </Key>
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Warnings">
+          <Key>
+            <PropertyRef Name="WarningID" />
+          </Key>
+          <Property Name="WarningID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarningContent" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_BillProcess_Bills">
+          <End Type="HomeM8Model.Bills" Role="Bills" Multiplicity="1" />
+          <End Type="HomeM8Model.BillProcess" Role="BillProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bills">
+              <PropertyRef Name="BillID" />
+            </Principal>
+            <Dependent Role="BillProcess">
+              <PropertyRef Name="BillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillProcess_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.BillProcess" Role="BillProcess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BillProcess">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Homes">
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="1" />
+          <End Type="HomeM8Model.Bills" Role="Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.Bills" Role="Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="OwnerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvents_Homes">
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="1" />
+          <End Type="HomeM8Model.CalendarEvents" Role="CalendarEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="CalendarEvents">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvents_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="HomeM8Model.CalendarEvents" Role="CalendarEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CalendarEvents">
+              <PropertyRef Name="PayerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debts_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.Debts" Role="Debts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Debts">
+              <PropertyRef Name="PayeeUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Debts_Users1">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.Debts" Role="Debts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Debts">
+              <PropertyRef Name="DebtorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForgotPass_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.ForgotPass" Role="ForgotPass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForgotPass">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeConnections_Homes">
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="1" />
+          <End Type="HomeM8Model.HomeConnections" Role="HomeConnections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="HomeConnections">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeConnections_Users1">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.HomeConnections" Role="HomeConnections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="HomeConnections">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Homes_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Homes">
+              <PropertyRef Name="CurManagerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Homes">
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="1" />
+          <End Type="HomeM8Model.Notifications" Role="Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Homes">
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="0..1" />
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CurrentHome" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NotificationComments_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.NotificationComments" Role="NotificationComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="NotificationComments">
+              <PropertyRef Name="OwnerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_NotificationType">
+          <End Type="HomeM8Model.NotificationType" Role="NotificationType" Multiplicity="1" />
+          <End Type="HomeM8Model.Notifications" Role="Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="NotificationTypeID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="NotificationType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.Notifications" Role="Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="OwnerUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ConnectionRequests">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="HomeID" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Homes" Relationship="HomeM8Model.FK_ConnectionRequests_Homes" FromRole="ConnectionRequests" ToRole="Homes" />
+          <NavigationProperty Name="Users" Relationship="HomeM8Model.FK_ConnectionRequests_Users" FromRole="ConnectionRequests" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_ConnectionRequests_Homes">
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="1" />
+          <End Type="HomeM8Model.ConnectionRequests" Role="ConnectionRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="ConnectionRequests">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConnectionRequests_Users">
+          <End Type="HomeM8Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="HomeM8Model.ConnectionRequests" Role="ConnectionRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ConnectionRequests">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HomeUseRules">
+          <Key>
+            <PropertyRef Name="RuleID" />
+          </Key>
+          <Property Name="RuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RuleType" Type="Int32" Nullable="false" />
+          <Property Name="HomeID" Type="Int32" Nullable="false" />
+          <Property Name="Detail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Homes" Relationship="HomeM8Model.FK_HomeUseRules_Homes" FromRole="HomeUseRules" ToRole="Homes" />
+          <NavigationProperty Name="RuleTypes" Relationship="HomeM8Model.FK_HomeUseRules_RuleTypes" FromRole="HomeUseRules" ToRole="RuleTypes" />
+        </EntityType>
+        <EntityType Name="RuleTypes">
+          <Key>
+            <PropertyRef Name="RuleTypeID" />
+          </Key>
+          <Property Name="RuleTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RuleDetail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HomeUseRules" Relationship="HomeM8Model.FK_HomeUseRules_RuleTypes" FromRole="RuleTypes" ToRole="HomeUseRules" />
+        </EntityType>
+        <Association Name="FK_HomeUseRules_Homes">
+          <End Type="HomeM8Model.Homes" Role="Homes" Multiplicity="1" />
+          <End Type="HomeM8Model.HomeUseRules" Role="HomeUseRules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homes">
+              <PropertyRef Name="HomeID" />
+            </Principal>
+            <Dependent Role="HomeUseRules">
+              <PropertyRef Name="HomeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeUseRules_RuleTypes">
+          <End Type="HomeM8Model.RuleTypes" Role="RuleTypes" Multiplicity="1" />
+          <End Type="HomeM8Model.HomeUseRules" Role="HomeUseRules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RuleTypes">
+              <PropertyRef Name="RuleTypeID" />
+            </Principal>
+            <Dependent Role="HomeUseRules">
+              <PropertyRef Name="RuleType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HomeM8ModelStoreContainer" CdmEntityContainer="HomeM8Entities">
+          <EntitySetMapping Name="BillProcess">
+            <EntityTypeMapping TypeName="HomeM8Model.BillProcess">
+              <MappingFragment StoreEntitySet="BillProcess">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+                <ScalarProperty Name="BillProcessID" ColumnName="BillProcessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="HomeM8Model.Bills">
+              <MappingFragment StoreEntitySet="Bills">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="LastPayment" ColumnName="LastPayment" />
+                <ScalarProperty Name="BillImage" ColumnName="BillImage" />
+                <ScalarProperty Name="BillAmount" ColumnName="BillAmount" />
+                <ScalarProperty Name="OwnerUserID" ColumnName="OwnerUserID" />
+                <ScalarProperty Name="HomeID" ColumnName="HomeID" />
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEvents">
+            <EntityTypeMapping TypeName="HomeM8Model.CalendarEvents">
+              <MappingFragment StoreEntitySet="CalendarEvents">
+                <ScalarProperty Name="ExpectedDate" ColumnName="ExpectedDate" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="EventExplanation" ColumnName="EventExplanation" />
+                <ScalarProperty Name="PayerUserID" ColumnName="PayerUserID" />
+                <ScalarProperty Name="HomeID" ColumnName="HomeID" />
+                <ScalarProperty Name="CalendarEventID" ColumnName="CalendarEventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debts">
+            <EntityTypeMapping TypeName="HomeM8Model.Debts">
+              <MappingFragment StoreEntitySet="Debts">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DebtorUserID" ColumnName="DebtorUserID" />
+                <ScalarProperty Name="PayeeUserID" ColumnName="PayeeUserID" />
+                <ScalarProperty Name="DebtID" ColumnName="DebtID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForgotPass">
+            <EntityTypeMapping TypeName="HomeM8Model.ForgotPass">
+              <MappingFragment StoreEntitySet="ForgotPass">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="AttemptCount" ColumnName="AttemptCount" />
+                <ScalarProperty Name="ValidationCode" ColumnName="ValidationCode" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ForgotPassID" ColumnName="ForgotPassID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FromRegister">
+            <EntityTypeMapping TypeName="HomeM8Model.FromRegister">
+              <MappingFragment StoreEntitySet="FromRegister">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="SharedSecret" ColumnName="SharedSecret" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FromRegisterUserID" ColumnName="FromRegisterUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeConnections">
+            <EntityTypeMapping TypeName="HomeM8Model.HomeConnections">
+              <MappingFragment StoreEntitySet="HomeConnections">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="HomeID" ColumnName="HomeID" />
+                <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Homes">
+            <EntityTypeMapping TypeName="HomeM8Model.Homes">
+              <MappingFragment StoreEntitySet="Homes">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Joinable" ColumnName="Joinable" />
+                <ScalarProperty Name="SingleUseJoinKey" ColumnName="SingleUseJoinKey" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HomeName" ColumnName="HomeName" />
+                <ScalarProperty Name="CurManagerUserID" ColumnName="CurManagerUserID" />
+                <ScalarProperty Name="HomeID" ColumnName="HomeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="HomeM8Model.Languages">
+              <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="AppContent" ColumnName="AppContent" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationComments">
+            <EntityTypeMapping TypeName="HomeM8Model.NotificationComments">
+              <MappingFragment StoreEntitySet="NotificationComments">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+                <ScalarProperty Name="OwnerUserID" ColumnName="OwnerUserID" />
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="HomeM8Model.Notifications">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="ExpectedAnswerRange" ColumnName="ExpectedAnswerRange" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="NotificationMessage" ColumnName="NotificationMessage" />
+                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+                <ScalarProperty Name="OwnerUserID" ColumnName="OwnerUserID" />
+                <ScalarProperty Name="HomeID" ColumnName="HomeID" />
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationType">
+            <EntityTypeMapping TypeName="HomeM8Model.NotificationType">
+              <MappingFragment StoreEntitySet="NotificationType">
+                <ScalarProperty Name="NotificationName" ColumnName="NotificationName" />
+                <ScalarProperty Name="NotificationTypeID" ColumnName="NotificationTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RSA">
+            <EntityTypeMapping TypeName="HomeM8Model.RSA">
+              <MappingFragment StoreEntitySet="RSA">
+                <ScalarProperty Name="privateKey" ColumnName="privateKey" />
+                <ScalarProperty Name="publicKey" ColumnName="publicKey" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="HomeM8Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="SharedSecret" ColumnName="SharedSecret" />
+                <ScalarProperty Name="ContactInfo" ColumnName="ContactInfo" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Userpass" ColumnName="Userpass" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
+                <ScalarProperty Name="AccessToken" ColumnName="AccessToken" />
+                <ScalarProperty Name="CurrentHome" ColumnName="CurrentHome" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserType">
+            <EntityTypeMapping TypeName="HomeM8Model.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warnings">
+            <EntityTypeMapping TypeName="HomeM8Model.Warnings">
+              <MappingFragment StoreEntitySet="Warnings">
+                <ScalarProperty Name="WarningContent" ColumnName="WarningContent" />
+                <ScalarProperty Name="WarningID" ColumnName="WarningID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConnectionRequests">
+            <EntityTypeMapping TypeName="HomeM8Model.ConnectionRequests">
+              <MappingFragment StoreEntitySet="ConnectionRequests">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="HomeID" ColumnName="HomeID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeUseRules">
+            <EntityTypeMapping TypeName="HomeM8Model.HomeUseRules">
+              <MappingFragment StoreEntitySet="HomeUseRules">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="HomeID" ColumnName="HomeID" />
+                <ScalarProperty Name="RuleType" ColumnName="RuleType" />
+                <ScalarProperty Name="RuleID" ColumnName="RuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RuleTypes">
+            <EntityTypeMapping TypeName="HomeM8Model.RuleTypes">
+              <MappingFragment StoreEntitySet="RuleTypes">
+                <ScalarProperty Name="RuleDetail" ColumnName="RuleDetail" />
+                <ScalarProperty Name="RuleTypeID" ColumnName="RuleTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

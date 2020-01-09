@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="df34d39824d14bcc9180fd4071f3961e" Name="Diagram1">
+        <EntityTypeShape EntityType="HomeM8Model.BillProcess" Width="1.5" PointX="6" PointY="14.25" />
+        <EntityTypeShape EntityType="HomeM8Model.Bills" Width="1.5" PointX="5.25" PointY="24.875" />
+        <EntityTypeShape EntityType="HomeM8Model.CalendarEvents" Width="1.5" PointX="8.25" PointY="21.125" />
+        <EntityTypeShape EntityType="HomeM8Model.Debts" Width="1.5" PointX="3" PointY="33.125" />
+        <EntityTypeShape EntityType="HomeM8Model.ForgotPass" Width="1.5" PointX="3" PointY="15.125" />
+        <EntityTypeShape EntityType="HomeM8Model.FromRegister" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HomeM8Model.HomeConnections" Width="1.5" PointX="5.25" PointY="21.25" />
+        <EntityTypeShape EntityType="HomeM8Model.Homes" Width="1.5" PointX="3" PointY="28.625" />
+        <EntityTypeShape EntityType="HomeM8Model.Languages" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HomeM8Model.NotificationComments" Width="1.5" PointX="3" PointY="9" />
+        <EntityTypeShape EntityType="HomeM8Model.Notifications" Width="1.5" PointX="8.25" PointY="25" />
+        <EntityTypeShape EntityType="HomeM8Model.NotificationType" Width="1.5" PointX="6" PointY="29.625" />
+        <EntityTypeShape EntityType="HomeM8Model.RSA" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HomeM8Model.Users" Width="1.5" PointX="0.75" PointY="12.625" />
+        <EntityTypeShape EntityType="HomeM8Model.UserType" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HomeM8Model.Warnings" Width="1.5" PointX="4.75" PointY="0.75" />
+        <AssociationConnector Association="HomeM8Model.FK_BillProcess_Bills" />
+        <AssociationConnector Association="HomeM8Model.FK_BillProcess_Users" />
+        <AssociationConnector Association="HomeM8Model.FK_Bills_Homes" />
+        <AssociationConnector Association="HomeM8Model.FK_Bills_Users" />
+        <AssociationConnector Association="HomeM8Model.FK_CalendarEvents_Homes" />
+        <AssociationConnector Association="HomeM8Model.FK_CalendarEvents_Users" />
+        <AssociationConnector Association="HomeM8Model.FK_Debts_Users" />
+        <AssociationConnector Association="HomeM8Model.FK_Debts_Users1" />
+        <AssociationConnector Association="HomeM8Model.FK_ForgotPass_Users" />
+        <AssociationConnector Association="HomeM8Model.FK_HomeConnections_Homes" />
+        <AssociationConnector Association="HomeM8Model.FK_HomeConnections_Users1" />
+        <AssociationConnector Association="HomeM8Model.FK_Homes_Users" />
+        <AssociationConnector Association="HomeM8Model.FK_Notifications_Homes" />
+        <AssociationConnector Association="HomeM8Model.FK_Users_Homes" />
+        <AssociationConnector Association="HomeM8Model.FK_NotificationComments_Users" />
+        <AssociationConnector Association="HomeM8Model.FK_Notifications_NotificationType" />
+        <AssociationConnector Association="HomeM8Model.FK_Notifications_Users" />
+        <EntityTypeShape EntityType="HomeM8Model.ConnectionRequests" Width="1.5" PointX="5.25" PointY="17.375" />
+        <AssociationConnector Association="HomeM8Model.FK_ConnectionRequests_Homes" />
+        <AssociationConnector Association="HomeM8Model.FK_ConnectionRequests_Users" />
+        <EntityTypeShape EntityType="HomeM8Model.HomeUseRules" Width="1.5" PointX="7.625" PointY="17.375" />
+        <EntityTypeShape EntityType="HomeM8Model.RuleTypes" Width="1.5" PointX="5.375" PointY="4.375" />
+        <AssociationConnector Association="HomeM8Model.FK_HomeUseRules_Homes" />
+        <AssociationConnector Association="HomeM8Model.FK_HomeUseRules_RuleTypes" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
