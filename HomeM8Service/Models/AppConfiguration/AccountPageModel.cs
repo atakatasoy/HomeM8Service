@@ -16,7 +16,7 @@ namespace HomeM8Service.Models.AppConfiguration
         public string HomeRulesString { get; set; }
         public string HomePermissionsString { get; set; }
         public string RequestsButtonString { get; set; }
-        public string DeleteButtonString { get; set; }
+        public string ExitButtonString { get; set; }
         public string SearchHomeString { get; set; }
         public string PeopleCountString { get; set; }
         public string JoinButtonString { get; set; }
@@ -29,5 +29,9 @@ namespace HomeM8Service.Models.AppConfiguration
         public string CurrentHomeIndicatorString { get; set; }
         public string ChangeHomeIndicatorString { get; set; }
         public string NoHomeResultFoundString { get; set; }
+        public string CreateHome_HomeNameString { get; set; }
+        public string CreateHome_HomeNamePlaceholderString { get; set; }
+        public string CreateHome_HomeAddressString { get; set; }
+        public string CreateHome_HomeAddressPlaceholderString { get; set; }
     }
 }

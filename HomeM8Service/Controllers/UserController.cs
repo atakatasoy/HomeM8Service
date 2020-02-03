@@ -1229,5 +1229,133 @@ namespace HomeM8Service.Controllers
         }
 
         #endregion
+
+        #region LeaveHome
+
+        [SecureConnectionFilter]
+        [HttpPost]
+        public async Task<HttpResponseMessage> LeaveHome(string username)
+        {
+            int responseVal = 0;
+            string responseText = "OK";
+            bool error = false;
+            var rawContent = await Request.Content.ReadAsStringAsync();
+
+            #region Method Specific Variable
+
+            var parameters = new
+            {
+                AccessToken = default(string),
+                HomeID = default(int)
+            };
+            Users requesterUser = default(Users);
+            Homes requestedHome = default(Homes);
+
+            #endregion
+
+            #region Parameter Controls
+
+            if (!HomeM8.DecryptionSucceeded(rawContent))
+            {
+                responseVal = 3010;
+                responseText = HomeM8.GetWarningString(3010);
+                error = true;
+            }
+
+            if (!error)
+            {
+                try
+                {
+                    parameters = JsonConvert.DeserializeAnonymousType(rawContent, parameters);
+                }
+                catch
+                {
+                    responseVal = 6;
+                    responseText = HomeM8.GetWarningString(6);
+                    error = true;
+                }
+            }
+
+            if (!error)
+            {
+                if (string.IsNullOrWhiteSpace(parameters.AccessToken))
+                {
+                    responseVal = 3;
+                    responseText = HomeM8.GetWarningString(3).Replace("#Parametre#", nameof(parameters.AccessToken));
+                    error = true;
+                }
+                else
+                {
+                    if (parameters.HomeID == 0)
+                    {
+                        responseVal = 3;
+                        responseText = HomeM8.GetWarningString(3).Replace("#Parametre#", nameof(parameters.HomeID));
+                        error = true;
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Main Process
+
+            if (!error)
+            {
+                using (HomeM8Entities db = new HomeM8Entities())
+                {
+                    requesterUser = HomeM8.GetUserByAccessToken(parameters.AccessToken, db);
+                    requestedHome = HomeM8.GetHomeByHomeID(parameters.HomeID, db);
+
+                    if (requesterUser == null)
+                    {
+                        responseVal = 3011;
+                        responseText = HomeM8.GetWarningString(3011);
+                        error = true;
+                    }
+                    else if (requestedHome == null)
+                    {
+                        responseVal = 3012;
+                        responseText = HomeM8.GetWarningString(3012);
+                        error = true;
+                    }
+                    else if (!HomeM8.UserAuthorized(requesterUser.UserID, requestedHome.HomeID))
+                    {
+                        responseVal = 3013;
+                        responseText = HomeM8.GetWarningString(3013);
+                        error = true;
+                    }
+
+                    if (!error)
+                    {
+                        var hc = db.HomeConnections.FirstOrDefault(connection => connection.HomeID == requestedHome.HomeID && connection.UserID == requesterUser.UserID);
+
+                        db.HomeConnections.Remove(hc);
+
+                        if (db.HomeConnections.Where(connection => connection.HomeID == requestedHome.HomeID).Count() == 1)
+                            db.Homes.Remove(requestedHome);
+
+                        requesterUser.CurrentHome = db.HomeConnections.FirstOrDefault(connection => connection.UserID == requesterUser.UserID).HomeID;
+
+                        await db.SaveChangesAsync();
+                    }
+
+                }
+            }
+
+            #endregion
+
+            var jsonStringResponse = JsonConvert.SerializeObject(new
+            {
+                responseVal,
+                responseText
+            });
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent((requesterUser != null) ? Security.EncryptAES(requesterUser.SharedSecret, jsonStringResponse) : jsonStringResponse)
+            };
+        }
+
+        #endregion
     }
 }

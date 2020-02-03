@@ -60,6 +60,16 @@ namespace HomeM8Service
             return validEmail;
         }
 
+        public static bool HomeNameValid(string homeName)
+        {
+            bool homeNameValid = false;
+            using(HomeM8Entities db=new HomeM8Entities())
+            {
+                homeNameValid = db.Homes.FirstOrDefault(home => home.HomeName == homeName) == null;
+            }
+            return homeNameValid;
+        }
+
         public static bool UsernameValid(string username)
         {
             bool validUsername = false;

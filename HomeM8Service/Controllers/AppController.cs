@@ -29,8 +29,7 @@ namespace HomeM8Service.Controllers
                 var bufferModel2 = JsonConvert.DeserializeObject<AppConfigurationModel>(dbItem2.AppContent);
 
                 #region Düzenleme Bölümü
-                bufferModel.AccountPageContent.NoHomeResultFoundString = " Hiç bir sonuç bulunamadı ! ";
-                bufferModel2.AccountPageContent.NoHomeResultFoundString = " No results found ! ";
+                bufferModel.AccountPageContent.ExitButtonString = "Evden Ayrıl";
                 #endregion
 
                 dbItem.AppContent = JsonConvert.SerializeObject(bufferModel);
